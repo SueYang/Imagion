@@ -45,7 +45,7 @@ def init_model():
     custom_model.compile(loss='mse',
                          optimizer=opt,
                          metrics=['accuracy'])
-
+    return custom_model
 
 def get_filenames():
     files_dict = {}
@@ -185,6 +185,8 @@ if __name__ == "__main__":
     chunk_size = 32
     img_rows = 160
     img_cols = 160
+
+    custom_model = init_model()
 
     for e in range(nb_epoch):
         print('-'*40)
