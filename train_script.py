@@ -187,21 +187,21 @@ if __name__ == "__main__":
     img_cols = 160
 
     for e in range(nb_epoch):
-    print('-'*40)
-    print 'Epoch', e
-    print('-'*40)
-    print "Training..."
-    instance_count=0
+        print('-'*40)
+        print 'Epoch', e
+        print('-'*40)
+        print "Training..."
+        instance_count=0
 
 
-    for chunk in chunks(train_keys, chunk_size):
-        X_chunk,Y_chunk=getTrainData(chunk,img_rows,img_cols)
+        for chunk in chunks(train_keys, chunk_size):
+            X_chunk,Y_chunk=getTrainData(chunk,img_rows,img_cols)
 
-        if (X_chunk is not None and Y_chunk is not None):
-            loss = custom_model.fit(X_chunk, Y_chunk, verbose=1, batch_size=batch_size, epochs=num_epochs)
-            instance_count+=chunk_size
+            if (X_chunk is not None and Y_chunk is not None):
+                loss = custom_model.fit(X_chunk, Y_chunk, verbose=1, batch_size=batch_size, epochs=num_epochs)
+                instance_count+=chunk_size
 
-            print "Instance Count:", instance_count
+                print "Instance Count:", instance_count
 
-            if instance_count%100==0:
-                custom_model.save_weights('basic_model.h5',overwrite=True)
+                if instance_count%100==0:
+                    custom_model.save_weights('basic_model.h5',overwrite=True)
