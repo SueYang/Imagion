@@ -27,7 +27,7 @@ def init_model():
     x = MaxPooling2D(pool_size=(2, 2))(x)
     x = Flatten()(x)
     x = Dense(256, activation='relu')(x)
-    x = Dropout(0.5)(x)
+    x = Dropout(0.2)(x)
     x = Dense(1)(x)
 
     # Creating new model. Please note that this is NOT a Sequential() model.
@@ -39,7 +39,7 @@ def init_model():
         layer.trainable = False
 
     # Custom Optimizer
-    opt = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=1e-6)
+    opt = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=0.1, decay=1e-6)
 
     # Do not forget to compile it
     custom_model.compile(loss='mse',
