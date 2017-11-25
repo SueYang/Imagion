@@ -1,4 +1,5 @@
 from keras import applications, optimizers
+from keras.models import Model
 from keras.layers import Input, Conv2D, MaxPooling2D, Dense, Dropout, Flatten
 from keras.utils import np_utils
 import cv2
@@ -19,8 +20,12 @@ def init_model():
     # Creating dictionary that maps layer names to the layers
     layer_dict = dict([(layer.name, layer) for layer in vgg_model.layers])
 
+    # Make sure that the pre-trained bottom layers are not trainable
+    for layer in vgg_model.layers:
+        layer.trainable = False
+
     # Getting output tensor of the last VGG layer that we want to include
-    x = layer_dict['block4_pool'].output
+    x = layer_dict['block5_pool'].output
 
     # Stacking a new simple convolutional network on top of it
     x = Conv2D(filters=64, kernel_size=(3, 3), activation='relu')(x)
@@ -28,29 +33,23 @@ def init_model():
     x = Flatten()(x)
     x = Dense(256, activation='relu')(x)
     x = Dropout(0.2)(x)
+    x = Dense(256, activation='relu')(x)
     x = Dense(1)(x)
 
-    # Creating new model. Please note that this is NOT a Sequential() model.
-    from keras.models import Model
-    custom_model = Model(inputs=vgg_model.input, outputs=x)
-
-    # Make sure that the pre-trained bottom layers are not trainable
-    for layer in custom_model.layers[:15]:
-        layer.trainable = False
+    model = Model(inputs=vgg_model.input, outputs=x)
 
     # Custom Optimizer
     opt = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=0.1, decay=1e-6)
 
     # Do not forget to compile it
-    custom_model.compile(loss='mse',
-                         optimizer=opt,
-                         metrics=['accuracy'])
-    return custom_model
+    model.compile(loss='mse', optimizer=opt, metrics=['accuracy'])
+
+    return model
 
 def get_filenames():
     files_dict = {}
 
-    cur.execute("SELECT filename, norm_score FROM scores")
+    cur.execute("SELECT filename, norm_score FROM slimscores")
 
     count = 0
 
@@ -72,14 +71,16 @@ def create_user_dict(dataset_dir):
         filename = filename.rsplit('.', 1)[0]
         alias = filename.rsplit('_', 1)[0]
 
+        # do not include outliers
+        if filename not in files_dict.keys():
+            continue
+
         if alias not in user_dict:
             user_dict[alias] = [filename]
         else:
             user_dict[alias].append(filename)
 
     return user_dict
-
-
 
 def split_sets():
     """Split training and test images"""
@@ -88,6 +89,7 @@ def split_sets():
 
     random.seed(10)
     keys = user_dict.keys()
+
     split = int(len(user_dict.keys()) * PERCENT_TRAINING)
 
     random.shuffle(keys) # revisit this shuffle function
@@ -106,8 +108,10 @@ def split_sets():
         for filename in user_dict[user]:
             test_keys.append(filename)
 
-    return [train_users, test_users, train_keys, test_keys]
+    random.shuffle(train_keys)
+    random.shuffle(test_keys)
 
+    return [train_users, test_users, train_keys, test_keys]
 
 def chunks(l, n):
     """Yield successive n-sized chunks from l"""
@@ -186,7 +190,7 @@ if __name__ == "__main__":
     img_rows = 160
     img_cols = 160
 
-    custom_model = init_model()
+    model = init_model()
 
     for e in range(nb_epoch):
         print('-'*40)
@@ -200,10 +204,11 @@ if __name__ == "__main__":
             X_chunk,Y_chunk=getTrainData(chunk,img_rows,img_cols)
 
             if (X_chunk is not None and Y_chunk is not None):
-                loss = custom_model.fit(X_chunk, Y_chunk, verbose=1, batch_size=batch_size, epochs=num_epochs)
+                loss = model.fit(X_chunk, Y_chunk, verbose=1, batch_size=batch_size, epochs=num_epochs)
                 instance_count+=chunk_size
 
+                print "Epoch Count:", e
                 print "Instance Count:", instance_count
 
-                if instance_count%100==0:
-                    custom_model.save_weights('basic_model.h5',overwrite=True)
+                if instance_count%640==0:
+                    model.save_weights('vgg_model.h5',overwrite=True)
