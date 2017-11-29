@@ -183,7 +183,7 @@ if __name__ == "__main__":
     # Split training and test sets by users and files
     train_users, test_users, train_keys, test_keys = split_sets()
 
-    nb_epoch = 100
+    nb_epoch = 1000
     num_epochs = 1
     batch_size = 2
     chunk_size = 32
@@ -191,6 +191,11 @@ if __name__ == "__main__":
     img_cols = 160
 
     model = init_model()
+
+    weights_path = 'vgg_model.h5'
+
+    if weights_path:
+        model.load_weights(weights_path)
 
     for e in range(nb_epoch):
         print('-'*40)
