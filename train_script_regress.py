@@ -194,7 +194,8 @@ if __name__ == "__main__":
 
     model = init_model()
 
-    weights_path = 'model_regress.h5'
+    # weights_path = 'model_regress.h5'
+    weights_path = None
 
     if weights_path:
         model.load_weights(weights_path)
