@@ -1,6 +1,6 @@
 from keras import applications, optimizers
-from keras.models import Model
-from keras.layers import Input, Conv2D, MaxPooling2D, Dense, Dropout, Flatten
+from keras.models import Model, Sequential
+from keras.layers import Input, Conv2D, MaxPooling2D, Dense, Dropout, Flatten, Activation
 from keras.utils import np_utils
 import cv2
 import numpy as np
