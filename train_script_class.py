@@ -10,11 +10,11 @@ import os
 import random
 
 
-def init_model():
+def init_model(num_classes):
     # If you want to specify input tensor
     img_rows = 100
     img_cols = 100
-    num_classes = 100
+    num_classes = num_classes
 
     input_shape = (img_rows, img_cols, 3)
 
@@ -194,8 +194,9 @@ if __name__ == "__main__":
     chunk_size = 32
     img_rows = 100
     img_cols = 100
+    num_classes = 100
 
-    model = init_model()
+    model = init_model(num_classes)
 
     # weights_path = 'model_regress.h5'
     weights_path = None
