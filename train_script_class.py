@@ -14,7 +14,7 @@ def init_model():
     # If you want to specify input tensor
     img_rows = 100
     img_cols = 100
-    num_classes = 1000
+    num_classes = 100
 
     input_shape = (img_rows, img_cols, 3)
 
@@ -52,7 +52,7 @@ def init_model():
 def get_filenames():
     files_dict = {}
 
-    cur.execute("SELECT filename, norm_score FROM slimscores")
+    cur.execute("SELECT filename, class_score FROM slimscoresclass")
 
     count = 0
 

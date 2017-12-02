@@ -1,0 +1,17 @@
+CREATE TABLE slimscoresclass (
+filename TEXT,
+alias TEXT,
+numberFollowing INTEGER,
+numberFollowers INTEGER,
+urlImage TEXT,
+numberLikes INTEGER,
+date DATETIME,
+mentions TEXT,
+localization TEXT,
+tags TEXT,
+url TEXT,
+description TEXT,
+standard_score FLOAT,
+norm_score FLOAT,
+class_score TEXT
+);
