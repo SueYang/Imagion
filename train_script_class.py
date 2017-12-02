@@ -201,7 +201,7 @@ if __name__ == "__main__":
 
     model = init_model(num_classes)
 
-    # weights_path = 'model_regress.h5'
+    # weights_path = 'model_class.h5'
     weights_path = None
 
     if weights_path:
@@ -233,4 +233,4 @@ if __name__ == "__main__":
                 print "Instance Count:", instance_count
 
                 if instance_count%640==0:
-                    model.save_weights('model_regress.h5',overwrite=True)
+                    model.save_weights('model_class.h5',overwrite=True)
