@@ -157,18 +157,20 @@ def get_test_data(chunk, img_row, img_col):
 
     return X_test,Y_test
 
-def getTrainData(chunk,img_rows,img_cols):
+def getTrainData(chunk,img_rows,img_cols,num_classes):
     X_train,Y_train = get_train_data(chunk,img_rows,img_cols)
     if (X_train is not None and Y_train is not None):
         X_train/=255
-        Y_train=np_utils.to_categorical(Y_train,num_classes)
+        encoded_Y = encoder.transform(Y_train)
+        Y_train=np_utils.to_categorical(encoded_Y,num_classes)
     return (X_train,Y_train)
 
-def getTestData(chunk,img_rows,img_cols):
+def getTestData(chunk,img_rows,img_cols,num_classes):
     X_test,Y_test = get_test_data(chunk,img_rows,img_cols)
     if (X_test is not None and Y_test is not None):
         X_test/=255
-        Y_train=np_utils.to_categorical(Y_train,num_classes)
+        encoded_Y = encoder.transform(Y_test)
+        Y_test=np_utils.to_categorical(encoded_Y,num_classes)
     return (X_test,Y_test)
 
 def test(model, nb_epoch, spatial_test_data, img_rows, img_cols):
@@ -194,7 +196,7 @@ if __name__ == "__main__":
     chunk_size = 32
     img_rows = 100
     img_cols = 100
-    num_classes = 100
+    num_classes = 101
 
     model = init_model(num_classes)
 
@@ -203,6 +205,13 @@ if __name__ == "__main__":
 
     if weights_path:
         model.load_weights(weights_path)
+
+    Y = np.arange(0, 10.1, 0.1)
+    Y = [str(num) for num in Y]
+
+    # encode class values as integers
+    encoder = LabelEncoder()
+    encoder.fit(Y)
 
     for e in range(nb_epoch):
         print('-'*40)
@@ -213,7 +222,7 @@ if __name__ == "__main__":
 
 
         for chunk in chunks(train_keys, chunk_size):
-            X_chunk,Y_chunk=getTrainData(chunk,img_rows,img_cols)
+            X_chunk,Y_chunk=getTrainData(chunk,img_rows,img_cols,num_classes)
 
             if (X_chunk is not None and Y_chunk is not None):
                 loss = model.fit(X_chunk, Y_chunk, verbose=1, batch_size=batch_size, epochs=num_epochs)
