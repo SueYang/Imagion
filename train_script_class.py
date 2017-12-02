@@ -2,6 +2,7 @@ from keras import applications, optimizers
 from keras.models import Model, Sequential
 from keras.layers import Input, Conv2D, MaxPooling2D, Dense, Dropout, Flatten, Activation
 from keras.utils import np_utils
+from sklearn.preprocessing import LabelEncoder
 import cv2
 import numpy as np
 import csv, sqlite3
