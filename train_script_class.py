@@ -161,12 +161,14 @@ def getTrainData(chunk,img_rows,img_cols):
     X_train,Y_train = get_train_data(chunk,img_rows,img_cols)
     if (X_train is not None and Y_train is not None):
         X_train/=255
+        Y_train=np_utils.to_categorical(Y_train,num_classes)
     return (X_train,Y_train)
 
 def getTestData(chunk,img_rows,img_cols):
     X_test,Y_test = get_test_data(chunk,img_rows,img_cols)
     if (X_test is not None and Y_test is not None):
         X_test/=255
+        Y_train=np_utils.to_categorical(Y_train,num_classes)
     return (X_test,Y_test)
 
 def test(model, nb_epoch, spatial_test_data, img_rows, img_cols):
