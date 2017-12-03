@@ -43,7 +43,7 @@ def init_model(num_classes):
     model.add(Activation('softmax'))
 
     # Custom Optimizer
-    opt = optimizers.rmsprop(lr=0.001, decay=1e-6)
+    opt = optimizers.rmsprop(lr=0.1, decay=1e-6)
 
     # Do not forget to compile it
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
