@@ -36,11 +36,12 @@ def init_model(num_classes):
     model.add(Flatten())
     model.add(Dense(512))
     model.add(Activation('relu'))
+    model.add(Dropout(0.5))
     model.add(Dense(num_classes))
     model.add(Activation('softmax'))
 
     # Custom Optimizer
-    opt = optimizers.rmsprop(lr=0.01, decay=1e-6)
+    opt = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 
     # Do not forget to compile it
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
