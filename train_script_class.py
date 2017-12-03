@@ -26,24 +26,21 @@ def init_model(num_classes):
     model.add(Conv2D(32, (3, 3)))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
 
     model.add(Conv2D(64, (3, 3), padding='same'))
     model.add(Activation('relu'))
     model.add(Conv2D(64, (3, 3)))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
 
     model.add(Flatten())
     model.add(Dense(512))
     model.add(Activation('relu'))
-    model.add(Dropout(0.5))
     model.add(Dense(num_classes))
     model.add(Activation('softmax'))
 
     # Custom Optimizer
-    opt = optimizers.rmsprop(lr=0.1, decay=1e-6)
+    opt = optimizers.rmsprop(lr=0.01, decay=1e-6)
 
     # Do not forget to compile it
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
