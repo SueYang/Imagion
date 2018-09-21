@@ -1,37 +1,19 @@
-## Welcome to GitHub Pages
+## Imagion
+Imagion is a UCB Data Science program capstone project. Imagion helps you pick which picture to upload to Instagram. Whether you are an advertiser that needs help deciding which creative will get the best click-through rate or an influencer that wants to maximize likes, Imagion is here to help.
 
-You can use the [editor on GitHub](https://github.com/SueYang/Capstone_Instagram/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Our team used machine learning to train a convolutional neural network to rank input images on a scale from 0 to 10 based on how well the model believes the images will do on Instagram. You can upload anywhere from 1 to 5 images at once and our algorithm will provide near real-time rankings of images and their respective scores. Our model was trained on a dataset of ~12k images from Instagram.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Team Member
+- Sue(Xue) Yang
+- Haroon Choudery
+- Roiana Reid
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### More about Project
 
 ```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+# Project Presentation Link
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+[Imagion Project on UC Berkeley Ischool Page](https://www.ischool.berkeley.edu/projects/2017/imagion)
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/SueYang/Capstone_Instagram/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
