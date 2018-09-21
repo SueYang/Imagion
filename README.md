@@ -10,10 +10,48 @@ Our team used machine learning to train a convolutional neural network to rank i
 
 ### More about Project
 
-```markdown
+
 
 # Project Presentation Link
-
 [Imagion Project on UC Berkeley Ischool Page](https://www.ischool.berkeley.edu/projects/2017/imagion)
-```
 
+# Website Delivery Screenshots
+<p align="center">
+Home Page
+  
+![Home](https://github.com/SueYang/Imagion/blob/master/Website/home.PNG)
+</p>
+
+
+<p align="center">
+About Page
+  
+![About-1](https://github.com/SueYang/Imagion/blob/master/Website/about-1.PNG)
+![About-2](https://github.com/SueYang/Imagion/blob/master/Website/about-2.PNG)
+![About-3](https://github.com/SueYang/Imagion/blob/master/Website/about-3.PNG)
+</p>
+
+
+
+<p align="center">
+Upload Page
+  
+![Upload-1](https://github.com/SueYang/Imagion/blob/master/Website/upload-1.PNG)
+![Upload-2](https://github.com/SueYang/Imagion/blob/master/Website/upload-2.PNG)
+</p>
+
+
+
+<p align="center">
+Result Page
+  
+![Result](https://github.com/SueYang/Imagion/blob/master/Website/Result.PNG)
+</p>
+
+
+
+<p align="center">
+Contact Page
+  
+![Contact](https://github.com/SueYang/Imagion/blob/master/Website/contact.PNG)
+</p>s
